@@ -18,7 +18,7 @@
 
 ## Presto docker setup is based on https://github.com/smizy/docker-presto
 
-ARG HADOOP_VERSION=3.1.0
+ARG HADOOP_VERSION=3.2.1
 ARG HIVE_VERSION=3.1.2
 FROM apachehudi/hudi-hadoop_${HADOOP_VERSION}-base:latest as hadoop-base
 
@@ -37,24 +37,24 @@ ENV PATH        $PATH:${PRESTO_HOME}/bin
 RUN set -x \
     && DEBIAN_FRONTEND=noninteractive apt-get -yq update \
     && apt-get -yq install \
-        bash \
-        less \
-        python \
-        tar \
-        wget \
+    bash \
+    less \
+    python \
+    tar \
+    wget \
     ## - hadoop native dependency lib
-        bzip2 \
-        fts \
-        fuse \
-        libtirpc1 \
-        libsnappy1v5 \
-        zip \
-        cron \
-        gosu \
+    bzip2 \
+    fts \
+    fuse \
+    libtirpc1 \
+    libsnappy1v5 \
+    zip \
+    cron \
+    gosu \
     && rm -rf /var/lib/apt/lists/* \
     ## presto-server
     && wget -q -O - https://repo1.maven.org/maven2/com/facebook/presto/presto-server/${PRESTO_VERSION}/presto-server-${PRESTO_VERSION}.tar.gz \
-        | tar -xzf - -C /opt/  \
+    | tar -xzf - -C /opt/  \
     && mkdir -p /var/hoodie/ws/docker/hoodie/hadoop/prestobase/target/ \
     ## presto-client
     && wget -q -O /usr/local/bin/presto https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/${PRESTO_VERSION}/presto-cli-${PRESTO_VERSION}-executable.jar \
@@ -63,11 +63,11 @@ RUN set -x \
     && adduser --shell /sbin/nologin --uid 1000 docker \
     && adduser --shell /sbin/nologin presto \
     && mkdir -p \
-        ${PRESTO_CONF_DIR} \
-        ${PRESTO_LOG_DIR} \
+    ${PRESTO_CONF_DIR} \
+    ${PRESTO_LOG_DIR} \
     && chmod -R 777 \
-        ${PRESTO_HOME} \
-        ${PRESTO_LOG_DIR} \
+    ${PRESTO_HOME} \
+    ${PRESTO_LOG_DIR} \
     ## cleanup
     && rm -rf /tmp/nativelib
 
