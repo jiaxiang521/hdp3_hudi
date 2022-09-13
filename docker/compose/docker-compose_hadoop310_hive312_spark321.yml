@@ -44,12 +44,14 @@ services:
       - ./hadoop.env
     ports:
       - "50075:50075"
+      - "9864:9864"
       - "50010:50010"
+      - "9866:9866"
     links:
       - "namenode"
       - "historyserver"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://datanode1:50075"]
+      test: ["CMD", "curl", "-f", "http://datanode1:9864"]
       interval: 30s
       timeout: 10s
       retries: 3
