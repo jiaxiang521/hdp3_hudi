@@ -67,5 +67,6 @@ ENV PATH $HIVE_HOME/bin/:$PATH
 # NOTE: This is the only battle-proven method to inject jars into Hive CLI
 ENV AUX_CLASSPATH=file://${HUDI_HADOOP_BUNDLE}
 
+RUN rm -rf /opt/hive/lib/guava-19.0.jar && cp /opt/hadoop-3.2.1/share/hadoop/common/lib/guava-27.0-jre.jar /opt/hive/lib/guava-27.0-jre.jar
 ENTRYPOINT ["entrypoint.sh"]
 CMD startup.sh
